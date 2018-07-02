@@ -53,7 +53,6 @@ def station_district_mapping(df):
     df[['Maximum Temp(Celsius)','Maximum Temp Departure from Normal(Celsius)', 'Minimum Temp(Celsius)','Minimum Temp Departure from Normal(Celsius)', '24 Hours Rainfall (mm)','Relative Humidity at 0830 hrs (%)','Relative Humidity at 1730 hrs (%)']] =df[['Maximum Temp(Celsius)','Maximum Temp Departure from Normal(Celsius)', 'Minimum Temp(Celsius)','Minimum Temp Departure from Normal(Celsius)', '24 Hours Rainfall (mm)','Relative Humidity at 0830 hrs (%)','Relative Humidity at 1730 hrs (%)']].apply(pd.to_numeric,errors='coerce')
     df[['Todays Sunset (IST)','Tommorows Sunrise (IST)', 'Moonset (IST)', 'Moonrise (IST)']] = df[['Todays Sunset (IST)','Tommorows Sunrise (IST)', 'Moonset (IST)', 'Moonrise (IST)']].apply(pd.to_timedelta,errors='coerce')
     print(222,datetime.datetime.now())
-    #print(df.head())
     df3=pd.DataFrame()
     for i in range(0,len(pf)): #327 iterations
         #print('hi',pf.loc[i,'district'])
@@ -82,7 +81,7 @@ def station_district_mapping(df):
            'Tommorows Sunrise (IST)', 'Moonset (IST)', 'Moonrise (IST)']].mean(axis=0),ignore_index=True)
         df1a['State']=pf.loc[i,'state']
         df1a['District']=pf.loc[i,'district']
-        df1a['Date']=df.loc[0,'Date']
+        df1a['Date']=df1.loc[0,'Date']
 
         df3=df3.append(df1a,ignore_index=True)
     print(223,datetime.datetime.now())
@@ -101,20 +100,19 @@ def daily_data_all(district="None",filter1="None"):#or particular date data
     #df = df.replace('\n','', regex=True)    
     #print(21,datetime.datetime.now())
     df=station_district_mapping(df)
-
-    #df[['Maximum Temp(Celsius)',
-     #  'Maximum Temp Departure from Normal(Celsius)', 'Minimum Temp(Celsius)',
-     #  'Minimum Temp Departure from Normal(Celsius)', '24 Hours Rainfall (mm)',
-     #  'Relative Humidity at 0830 hrs (%)',
-     #  'Relative Humidity at 1730 hrs (%)']]=df[['Maximum Temp(Celsius)',
-     #  'Maximum Temp Departure from Normal(Celsius)', 'Minimum Temp(Celsius)',
-     #  'Minimum Temp Departure from Normal(Celsius)', '24 Hours Rainfall (mm)',
-     #  'Relative Humidity at 0830 hrs (%)',
-     #  'Relative Humidity at 1730 hrs (%)']].replace(np.NaN,'NA')
+    # df[['Maximum Temp(Celsius)',
+    #    'Maximum Temp Departure from Normal(Celsius)', 'Minimum Temp(Celsius)',
+    #    'Minimum Temp Departure from Normal(Celsius)', '24 Hours Rainfall (mm)',
+    #    'Relative Humidity at 0830 hrs (%)',
+    #    'Relative Humidity at 1730 hrs (%)']]=df[['Maximum Temp(Celsius)',
+    #    'Maximum Temp Departure from Normal(Celsius)', 'Minimum Temp(Celsius)',
+    #    'Minimum Temp Departure from Normal(Celsius)', '24 Hours Rainfall (mm)',
+    #    'Relative Humidity at 0830 hrs (%)',
+    #    'Relative Humidity at 1730 hrs (%)']].replace(np.NaN,'NA')
     df=df.where(pd.notna(df), df.mean(), axis='columns') #not a good method
     # df[['Todays Sunset (IST)',
-    #    'Tommorows Sunrise (IST)', 'Moonset (IST)', 'Moonrise (IST)']]=df[['Todays Sunset (IST)',
-    #    'Tommorows Sunrise (IST)', 'Moonset (IST)', 'Moonrise (IST)']].astype(str).replace(np.NaN,'NA')
+    #     'Tommorows Sunrise (IST)', 'Moonset (IST)', 'Moonrise (IST)']]=df[['Todays Sunset (IST)',
+    #     'Tommorows Sunrise (IST)', 'Moonset (IST)', 'Moonrise (IST)']].astype(str).replace(np.NaN,'NA')
 
     #print(22,datetime.datetime.now())
     #filter1='Maximum Temp(Celsius)'
@@ -252,6 +250,7 @@ def next_7_days_data1(district='None'):
     weather=list(df.columns[df.columns.str.startswith('Weather_Date')])
     df=station_district_mapping2(df) #7.11 s
     #df=df.replace(np.NaN,'NA')
+
     #district='Nalbari'
     #district="None"
     #print(23,datetime.datetime.now())
@@ -281,7 +280,7 @@ def next_7_days_data1(district='None'):
             #df1.reset_index(inplace=True,drop=True)
             for i in range(0,7):
                 inst={}
-                inst['date']=df1.loc[dates[i+1]]
+                inst['date']=df1.loc[dates[i]]
                 inst['state']=df1.loc['State']
                 inst['district']=df1.loc['District']
                 inst['mintemp']=df1.loc[mintemp[i]]
