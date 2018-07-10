@@ -54,7 +54,7 @@ def station_district_mapping(df):
     df[['Todays Sunset (IST)','Tommorows Sunrise (IST)', 'Moonset (IST)', 'Moonrise (IST)']] = df[['Todays Sunset (IST)','Tommorows Sunrise (IST)', 'Moonset (IST)', 'Moonrise (IST)']].apply(pd.to_timedelta,errors='coerce')
     print(222,datetime.datetime.now())
     df3=pd.DataFrame()
-    for i in range(0,len(pf)): #327 iterations
+    for i in range(1,len(pf)): #327 iterations
         #print('hi',pf.loc[i,'district'])
         df1=pd.DataFrame()
         if((pf.loc[i,'dist1']==0)&(pf.loc[i,'dist2']==0)&(pf.loc[i,'dist3']==0)):

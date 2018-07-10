@@ -4,6 +4,8 @@ from django.shortcuts import render
 # Create your views here.
     
 from django.http import HttpResponse,JsonResponse
+from .models import ImdWeatherPredictionData1,ImdWeather1
+
 import math
 import os, json
 import numpy as np
