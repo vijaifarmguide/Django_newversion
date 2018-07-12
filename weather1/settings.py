@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'imd',
 ]
 
 MIDDLEWARE = [
@@ -76,9 +77,26 @@ WSGI_APPLICATION = 'weather1.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'farmguide_data',
+        'USER': 'farmguideIP',
+        'PASSWORD': 'ImageProcessing!',
+        'HOST': 'imageprocessing.cp7riswp4tg3.us-east-1.rds.amazonaws.com',
+        'OPTIONS': {
+            'connect_timeout': 6000
+        }
+    },
+    'image_processing': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'image_processing',
+        'USER': 'farmguideIP',
+        'PASSWORD': 'ImageProcessing!',
+        'HOST': 'imageprocessing.cp7riswp4tg3.us-east-1.rds.amazonaws.com',
+        'OPTIONS': {
+            'connect_timeout': 6000
+        }
     }
+
 }
 
 
